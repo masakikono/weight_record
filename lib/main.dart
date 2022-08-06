@@ -4,7 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:weight_record/constants/const.dart';
+import 'package:weight_record/model/symplemodel/dayModel.dart';
+import 'package:weight_record/view/graphPage.dart';
+import 'package:weight_record/view/userPage.dart';
 
+import 'view/homePage.dart';
+import 'view/recordPage.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,8 +32,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SteamBuilder(
-
-    );
+    return SteamBuilder();
   }
 }
