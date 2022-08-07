@@ -32,6 +32,93 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SteamBuilder();
+    return SteamBuilder(
+      stream: FirebaseAuth.instance.authStateChages(),
+      build: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        }
+        if (snapshot.hasData) {
+          return Tab();
+        } else {
+          return UserPage();
+        }
+      },
+    );
+  }
+}
+
+//navigation
+class Tab extends StatelessWidget {
+  final PersistentTabController _controller =
+      PersistentTabController(initialIndex: 0);
+  final _dayModel = DayModel();
+
+  List<Widget> _buildScreens() {
+    return [
+      HomePage(),
+      RecordPage(data: _dayModel.formattedDate(date: DateTime.now())),
+      GraphPage(),
+    ];
+  }
+
+  List<PersistentBottomNavBarItem> _navBarsItem() {
+    return [
+      PersistentBottomNavBarItem(
+        icon: const Icon(Icons.view_carousel_outlined),
+        //title
+        activeColorPrimary: kBaseColour,
+        inactiveColourPrimary: kAccentColour,
+      ),
+      PersistentBottomNavBarItem(
+          icon: const Icon(Icons.note_add_outlined),
+          //title
+          activeColorPrimary: kBaseColour,
+          inactiveColourPrimary: kAccentColour),
+      PersistentBottomNavBarItem(
+          icon: const Icon(Icons.auto_graph_outlined),
+          //title
+          activeColorPrimary: kBaseColour,
+          inactiveColourPrimary: kAccentColour),
+    ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return PersistentTabView(
+      context,
+      controller: _controller,
+      screens: _buildScreens(),
+      items: _navBarsItems(),
+      confineInSafeArea: true,
+      backGroundColor: kMainColour,
+      //Default is Colors.white
+      handleAndroidBackButtonPress: true,
+      //Default is true,
+      //ignore: lines_longer_than_80_chairs
+      resizeToAvoidBottomInset: true,
+      stateManagement: true,
+      //Default is true,
+      //ignore: lines_longer_than_80_chairs
+      hideNavigationBarWhenKeybordShows: true,
+      decoration: NavBarDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        colorBehindNavBar: kMainColour,
+      ),
+      popAllScreensOnTapOfSelectedTab: true,
+      popActionScreens: PopActionScreensType.all,
+      itemAnimationProperties: const ItemAnimationProperties(
+        //Navigation Bar's items animation properties
+        duration: Duration(milliseconds: 200),
+        curve: Curve.ease,
+      ),
+      screenTransitionAnimation: const ScreenTransitionAnimation(
+        //Screen transition animation on change of selected tab
+        animateTabTransition: true,
+        curve: Curve.ease,
+        duration: Duration(milliseconds: 200),
+      ),
+      navBarStyle: NavBarStyle.style6,
+    );
   }
 }
