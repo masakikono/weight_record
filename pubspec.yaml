@@ -38,6 +38,7 @@ dependencies:
   hooks_riverpod: ^1.0.4
   dots_indicator: ^2.1.0
   cloud_firestore: ^3.4.3
+  fl_chart: ^0.55.1
 
 dev_dependencies:
   flutter_test:
