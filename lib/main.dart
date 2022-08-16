@@ -32,9 +32,9 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SteamBuilder(
-      stream: FirebaseAuth.instance.authStateChages(),
-      build: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+    return StreamBuilder(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
         }
@@ -57,7 +57,7 @@ class Tab extends StatelessWidget {
   List<Widget> _buildScreens() {
     return [
       HomePage(),
-      RecordPage(data: _dayModel.formattedDate(date: DateTime.now())),
+      RecordPage(date: _dayModel.formattedDate(date: DateTime.now())),
       GraphPage(),
     ];
   }
@@ -68,18 +68,18 @@ class Tab extends StatelessWidget {
         icon: const Icon(Icons.view_carousel_outlined),
         //title
         activeColorPrimary: kBaseColour,
-        inactiveColourPrimary: kAccentColour,
+        inactiveColorPrimary: kAccentColour,
       ),
       PersistentBottomNavBarItem(
           icon: const Icon(Icons.note_add_outlined),
           //title
           activeColorPrimary: kBaseColour,
-          inactiveColourPrimary: kAccentColour),
+          inactiveColorPrimary: kAccentColour),
       PersistentBottomNavBarItem(
           icon: const Icon(Icons.auto_graph_outlined),
           //title
           activeColorPrimary: kBaseColour,
-          inactiveColourPrimary: kAccentColour),
+          inactiveColorPrimary: kAccentColour),
     ];
   }
 
@@ -89,9 +89,9 @@ class Tab extends StatelessWidget {
       context,
       controller: _controller,
       screens: _buildScreens(),
-      items: _navBarsItems(),
+      items: _navBarsItem(),
       confineInSafeArea: true,
-      backGroundColor: kMainColour,
+      backgroundColor: kMainColour,
       //Default is Colors.white
       handleAndroidBackButtonPress: true,
       //Default is true,
@@ -100,7 +100,7 @@ class Tab extends StatelessWidget {
       stateManagement: true,
       //Default is true,
       //ignore: lines_longer_than_80_chairs
-      hideNavigationBarWhenKeybordShows: true,
+      hideNavigationBarWhenKeyboardShows: true,
       decoration: NavBarDecoration(
         borderRadius: BorderRadius.circular(10.0),
         colorBehindNavBar: kMainColour,
@@ -110,12 +110,12 @@ class Tab extends StatelessWidget {
       itemAnimationProperties: const ItemAnimationProperties(
         //Navigation Bar's items animation properties
         duration: Duration(milliseconds: 200),
-        curve: Curve.ease,
+        curve: Curves.ease,
       ),
       screenTransitionAnimation: const ScreenTransitionAnimation(
         //Screen transition animation on change of selected tab
         animateTabTransition: true,
-        curve: Curve.ease,
+        curve: Curves.ease,
         duration: Duration(milliseconds: 200),
       ),
       navBarStyle: NavBarStyle.style6,
