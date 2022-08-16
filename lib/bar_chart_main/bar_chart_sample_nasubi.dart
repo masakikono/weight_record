@@ -171,7 +171,7 @@ class BarChartSampleNasubi extends HookConsumerWidget {
                                   List _test = snapshot.data.map((e) =>
                                       double.parse(e.weight!))
                                       .toList();
-                                  _test.sort((b.a) => a.compareTo(b));
+                                  _test.sort((b, a) => a.compareTo(b));
                                   return _modelState.makeGroupData(
                                   index,
                                   snapshot.data.map((e) => double.parse(e.weight!)).toList()[index],

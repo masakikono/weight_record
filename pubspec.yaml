@@ -39,6 +39,8 @@ dependencies:
   dots_indicator: ^2.1.0
   cloud_firestore: ^3.4.3
   fl_chart: ^0.55.1
+  persistent_bottom_nav_bar: ^4.0.2
+  provider: ^6.0.3
 
 dev_dependencies:
   flutter_test:
